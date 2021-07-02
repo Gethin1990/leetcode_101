@@ -7,7 +7,7 @@ import collections
 from typing import List
 
 # %% [markdown]
-#  ### 167. Two Sum II - Input array is sorted (Easy)
+#  167. Two Sum II - Input array is sorted (Easy)
 #  >在一个增序的整数数组里找到两个数，使它们的和为给定值。已知有且只有一对解。
 
 # %%
