@@ -1,4 +1,3 @@
-
 # %% [markdown]
 # # 双指针
 
@@ -15,21 +14,22 @@ from typing import List
 
 def two_sum(numbers: List[int], target: int) -> List[int]:
     l = 0
-    r = len(numbers)-1
+    r = len(numbers) - 1
     while l < r:
-        num_sum = numbers[l]+numbers[r]
+        num_sum = numbers[l] + numbers[r]
         if num_sum == target:
             break
         if num_sum < target:
             l += 1
         else:
             r -= 1
-    return [l+1, r+1]
+    return [l + 1, r + 1]
 
 
 def two_sum_test():
     result = two_sum([2, 7, 11, 15], 9)
     print(result)
+
 
 # %% [markdown]
 #  88. Merge Sorted Array (Easy)
@@ -61,6 +61,7 @@ def merge_test():
     merge(num1, 3, num2, 3)
     print(num1)
 
+
 # %% [markdown]
 #  142. Linked List Cycle II (Medium)
 #  >给定一个链表，如果有环路，找出环路的开始点。
@@ -85,6 +86,7 @@ def detect_cycle(head: ListNode) -> ListNode:
         fast, slow = fast.next, slow.next
     return fast
 
+
 # %%
 
 
@@ -99,7 +101,6 @@ def detect_cycle_test():
     print(result.val)
 
 
-
 # %% [markdown]
 #  76. MinimumWindow Substring (Hard)
 #  >给定两个字符串S 和T，求S 中包含T 所有字符的最短连续子字符串的长度，同时要求时间复杂度不得超过O(n)。
@@ -111,7 +112,7 @@ def min_window(s: str, t: str) -> str:
         need[c] += 1
     needCnt = len(t)
     i = 0
-    res = (0, float('inf'))
+    res = (0, float("inf"))
     for j, c in enumerate(s):
         if need[c] > 0:
             needCnt -= 1
@@ -123,19 +124,20 @@ def min_window(s: str, t: str) -> str:
                     break
                 need[c] += 1
                 i += 1
-            if j-i < res[1]-res[0]:  # 记录结果
+            if j - i < res[1] - res[0]:  # 记录结果
                 res = (i, j)
             need[s[i]] += 1  # 步骤三：i增加一个位置，寻找新的满足条件滑动窗口
             needCnt += 1
             i += 1
     # 如果res始终没被更新过，代表无满足条件的结果
-    return '' if res[1] > len(s) else s[res[0]:res[1]+1]
+    return "" if res[1] > len(s) else s[res[0] : res[1] + 1]
+
 
 # %%
 def min_window_test():
-    s="DOABECODEBANC"
-    t="ABC"
-    result = min_window(s,t)
+    s = "DOABECODEBANC"
+    t = "ABC"
+    result = min_window(s, t)
     print(result)
 
 
