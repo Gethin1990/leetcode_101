@@ -4,8 +4,9 @@
 
 # %%
 
+
 class max_area_of_island_solution:
-    def dfs(self,guid, cur_i, cur_j) -> int:
+    def dfs(self, guid, cur_i, cur_j) -> int:
         if (
             cur_i < 0
             or cur_j < 0
@@ -22,14 +23,12 @@ class max_area_of_island_solution:
             ans += self.dfs(guid, next_i, next_j)
         return ans
 
-
-    def max_area_of_island(self,guid) -> int:
+    def max_area_of_island(self, guid) -> int:
         ans = 0
         for i, l in enumerate(guid):
             for j, n in enumerate(l):
                 ans = max(self.dfs(guid, i, j), ans)
         return ans
-
 
     def max_area_of_island_test(self):
         guid = [
@@ -47,7 +46,33 @@ class max_area_of_island_solution:
 
 
 # %%
-s1 = max_area_of_island_solution()
-s1.max_area_of_island_test()
+class find_circle_num_solution:
+    def find_circle_num(self, is_connected) -> int:
+        def dfs(i):
+            for j in range(provinces):
+                if is_connected[i][j] == 1 and j not in visited:
+                    visited.add(j)
+                    dfs(i)
 
+        provinces = len(is_connected)
+        visited = set()
+        circle = 0
+        for i in range(provinces):
+            if i not in visited:
+                dfs(i)
+                circle += 1
+        return circle
+
+    def find_circle_num_test(self):
+        is_connected = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
+        result = self.find_circle_num(is_connected)
+        print(result)
+
+
+# %%
+# s1 = max_area_of_island_solution()
+# s1.max_area_of_island_test()
+
+s2 = find_circle_num_solution()
+s2.find_circle_num_test()
 # %%
