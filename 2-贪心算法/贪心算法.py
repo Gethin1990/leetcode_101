@@ -7,7 +7,8 @@
 # ##分配问题（find_content_children）
 
 # %% [markdown]
-# ### 455. Assign Cookies (Easy)
+# 455. Assign Cookies (Easy)
+# >https://leetcode-cn.com/problems/assign-cookies/
 # >有一群孩子和一堆饼干，每个孩子有一个饥饿度，每个饼干都有一个大小。每个孩子只能吃一个饼干，且只有饼干的大小不小于孩子的饥饿度时，这个孩子才能吃饱。求解最多有多少孩子可以吃饱。
 
 # %%
@@ -32,8 +33,9 @@ def find_content_children_test():
 
 
 # %% [markdown]
-#  ### 135. Candy (Hard)
-#  >一群孩子站成一排，每一个孩子有自己的评分。现在需要给这些孩子发糖果，规则是如果一个孩子的评分比自己身旁的一个孩子要高，那么这个孩子就必须得到比身旁孩子更多的糖果；所有孩子至少要有一个糖果。求解最少需要多少个糖果。
+# 135. Candy (Hard)
+# >https://leetcode-cn.com/problems/candy/
+# >一群孩子站成一排，每一个孩子有自己的评分。现在需要给这些孩子发糖果，规则是如果一个孩子的评分比自己身旁的一个孩子要高，那么这个孩子就必须得到比身旁孩子更多的糖果；所有孩子至少要有一个糖果。求解最少需要多少个糖果。
 
 # %%
 
@@ -57,8 +59,9 @@ def candy_test():
 
 
 # %% [markdown]
-#  ### 435. Non-overlapping Intervals (Medium)
-#  >给定多个区间，计算让这些区间互不重叠所需要移除区间的最少个数。起止相连不算重叠。
+# 435. Non-overlapping Intervals (Medium)
+# >https://leetcode-cn.com/problems/non-overlapping-intervals/ 
+# >给定多个区间，计算让这些区间互不重叠所需要移除区间的最少个数。起止相连不算重叠。
 
 
 def erase_overlap_intervals(intervals: list[list[int]]) -> int:

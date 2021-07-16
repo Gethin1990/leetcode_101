@@ -5,11 +5,11 @@
 # 冒泡排序
 # %%
 def bubble_sort(nums: list[int]):
-    for i in range(len(nums)):
+    for _i in range(len(nums)):
         is_sorted = True
-        for j in range(len(nums)-1-i):
-            if nums[j] > nums[j+1]:
-                nums[j], nums[j+1] = nums[j+1], nums[j]
+        for _j in range(len(nums) - 1 - _i):
+            if nums[_j] > nums[_j + 1]:
+                nums[_j], nums[_j + 1] = nums[_j + 1], nums[_j]
                 is_sorted = False
         if is_sorted:
             break
@@ -21,18 +21,19 @@ def bubble_sort_test():
     bubble_sort(nums)
     print(nums)
 
+
 # 选择排序
 # %%
 
 
 def selection_sort(nums: list[int]):
-    for i in range(len(nums)-1):
-        min_index = i
-        for j in range(i+1, len(nums)):
-            if nums[j] < nums[min_index]:
-                min_index = j
-            if min_index != i:
-                nums[i], nums[min_index] = nums[min_index], nums[i]
+    for _i in range(len(nums) - 1):
+        _min_index = _i
+        for _j in range(_i + 1, len(nums)):
+            if nums[_j] < nums[_min_index]:
+                _min_index = _j
+            if _min_index != _i:
+                nums[_i], nums[_min_index] = nums[_min_index], nums[_i]
     return nums
 
 
@@ -41,17 +42,17 @@ def selection_sort_test():
     selection_sort(nums)
     print(nums)
 
+
 # 插入排序
-
-
+# %%
 def insertion_sort(nums: list[int]):
-    for i in range(1, len(nums)):
-        pre_index = i-1
-        current = nums[i]
-        while pre_index >= 0 and current < nums[pre_index]:
-            nums[pre_index+1] = nums[pre_index]
-            pre_index -= 1
-        nums[pre_index+1] = current
+    for _i in range(1, len(nums)):
+        _pre_index = _i - 1
+        current = nums[_i]
+        while _pre_index >= 0 and current < nums[_pre_index]:
+            nums[_pre_index + 1] = nums[_pre_index]
+            _pre_index -= 1
+        nums[_pre_index + 1] = current
     return nums
 
 
@@ -63,27 +64,31 @@ def insertion_sort_test():
 
 # 快速排序
 # %%
-def quick_sort(nums: list[int], l, r):
-    if(l >= r):
+def quick_sort(nums: list[int], _l, _r):
+    if _l >= _r:
         return
-    low, high, = l, r
-    key = nums[low]
-    while(low < high):
-        while(low < high and nums[high] >= key):
-            high -= 1
-        nums[low] = nums[high]
-        while(low < high and nums[low] <= key):
-            low += 1
-        nums[high] = nums[low]
-    nums[low] = key
-    quick_sort(nums, l, low-1)
-    quick_sort(nums, low+1, r)
+    _low, _high, = (
+        _l,
+        _r,
+    )
+    key = nums[_low]
+    while _low < _high:
+        while _low < _high and nums[_high] >= key:
+            _high -= 1
+        nums[_low] = nums[_high]
+        while _low < _high and nums[_low] <= key:
+            _low += 1
+        nums[_high] = nums[_low]
+    nums[_low] = key
+    quick_sort(nums, _l, _low - 1)
+    quick_sort(nums, _low + 1, _r)
 
 
 def quick_sort_test():
     nums = [5, 4, 8, 9, 2, 7, 6]
-    quick_sort(nums, 0, len(nums)-1)
+    quick_sort(nums, 0, len(nums) - 1)
     print(nums)
+
 
 # 归并排序
 # %%
@@ -91,30 +96,30 @@ def quick_sort_test():
 
 def merge(nums_1: list[int], nums_2: list[int]):
     sorted_arr = []
-    idx_1, idx_2 = 0, 0
-    while idx_1 < len(nums_1) and idx_2 < len(nums_2):
-        if nums_1[idx_1] < nums_2[idx_2]:
-            sorted_arr.append(nums_1[idx_1])
-            idx_1 += 1
+    _idx_1, _idx_2 = 0, 0
+    while _idx_1 < len(nums_1) and _idx_2 < len(nums_2):
+        if nums_1[_idx_1] < nums_2[_idx_2]:
+            sorted_arr.append(nums_1[_idx_1])
+            _idx_1 += 1
         else:
-            sorted_arr.append(nums_2[idx_2])
-            idx_2 += 1
-    if idx_1 < len(nums_1):
-        while idx_1 < len(nums_1):
-            sorted_arr.append(nums_1[idx_1])
-            idx_1 += 1
-    if idx_2 < len(nums_2):
-        while idx_2 < len(nums_2):
-            sorted_arr.append(nums_2[idx_2])
-            idx_2 += 1
+            sorted_arr.append(nums_2[_idx_2])
+            _idx_2 += 1
+    if _idx_1 < len(nums_1):
+        while _idx_1 < len(nums_1):
+            sorted_arr.append(nums_1[_idx_1])
+            _idx_1 += 1
+    if _idx_2 < len(nums_2):
+        while _idx_2 < len(nums_2):
+            sorted_arr.append(nums_2[_idx_2])
+            _idx_2 += 1
     return sorted_arr
 
 
 def merge_sort(nums: list[int]):
     if len(nums) <= 1:
         return nums
-    mid = len(nums)//2
-    arr_1, arr_2 = nums[:mid], nums[mid:]
+    _mid = len(nums) // 2
+    arr_1, arr_2 = nums[:_mid], nums[_mid:]
     return merge(merge_sort(arr_1), merge_sort(arr_2))
 
 
@@ -122,6 +127,7 @@ def merge_sort_test():
     nums = [5, 4, 8, 9, 2, 7, 6]
     merge_sort(nums)
     print(nums)
+
 
 # 堆排序
 # %%
@@ -133,34 +139,34 @@ def heap_sort(arr):
     heapLen = len(arr)
     # 构建最大堆
     build_max_heap(arr)
-    for i in range(len(arr)-1, 0, -1):
+    for _i in range(len(arr) - 1, 0, -1):
         # 依次将堆顶移至堆尾
-        swap(arr, 0, i)
+        swap(arr, 0, _i)
         heapLen -= 1
         heapify(arr, 0)
     return arr
 
 
 def build_max_heap(arr):
-    for i in range(len(arr)//2-1, -1, -1):
-        heapify(arr, i)
+    for _i in range(len(arr) // 2 - 1, -1, -1):
+        heapify(arr, _i)
 
 
-def heapify(arr, i):
-    left = 2*i + 1
-    right = 2*i + 2
-    largest = i
-    if right < heapLen and arr[right] > arr[largest]:
-        largest = right
-    if left < heapLen and arr[left] > arr[largest]:
-        largest = left
-    if largest != i:
-        swap(arr, largest, i)
-        heapify(arr, largest)
+def heapify(arr, _i):
+    _left = 2 * _i + 1
+    _right = 2 * _i + 2
+    _largest = _i
+    if _right < heapLen and arr[_right] > arr[_largest]:
+        _largest = _right
+    if _left < heapLen and arr[_left] > arr[_largest]:
+        _largest = _left
+    if _largest != _i:
+        swap(arr, _largest, _i)
+        heapify(arr, _largest)
 
 
-def swap(arr, i, j):
-    arr[i], arr[j] = arr[j], arr[i]
+def swap(arr, _i, _j):
+    arr[_i], arr[_j] = arr[_j], arr[_i]
 
 
 def heap_sort_test():

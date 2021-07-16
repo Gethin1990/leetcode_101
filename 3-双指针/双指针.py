@@ -3,6 +3,7 @@
 
 # %% [markdown]
 # 167. Two Sum II - Input array is sorted (Easy)
+# >https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/
 # >在一个增序的整数数组里找到两个数，使它们的和为给定值。已知有且只有一对解。
 
 # %%
@@ -32,6 +33,7 @@ two_sum_test()
 
 # %% [markdown]
 # 88. Merge Sorted Array (Easy)
+# >https://leetcode-cn.com/problems/merge-sorted-array/
 # >给定两个有序数组，把两个数组合并为一个
 
 
@@ -66,6 +68,7 @@ merge_test()
 
 # %% [markdown]
 # 142. Linked List Cycle II (Medium)
+# >https://leetcode-cn.com/problems/linked-list-cycle-ii/
 # >给定一个链表，如果有环路，找出环路的开始点。
 
 
@@ -83,10 +86,10 @@ def detect_cycle(head: ListNode) -> ListNode:
         _fast, _slow = _fast.next.next, _slow.next
         if _fast == _slow:
             break
-    _fast = head
-    while _fast != _slow:
-        _fast, _slow = _fast.next, _slow.next
-    return _fast
+    _ptr = head
+    while _ptr != _slow:
+        _ptr, _slow = _ptr.next, _slow.next
+    return _ptr
 
 
 # %%
@@ -105,6 +108,7 @@ detect_cycle_test()
 
 # %% [markdown]
 #  76. MinimumWindow Substring (Hard)
+#  >https://leetcode-cn.com/problems/minimum-window-substring/
 #  >给定两个字符串S 和T，求S 中包含T 所有字符的最短连续子字符串的长度，同时要求时间复杂度不得超过O(n)。
 
 # %%
