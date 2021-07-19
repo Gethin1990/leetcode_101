@@ -4,7 +4,7 @@
 
 # setp:
 # 1. def dp
-# 2. def dp init
+# 2. def dp init 最小就
 # 3. dp 推导式
 
 # %%
