@@ -2,7 +2,12 @@
 # 70. 爬楼梯
 # >假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
 
-#%%
+# setp:
+# 1. def dp
+# 2. def dp init
+# 3. dp 推导式
+
+# %%
 class climb_stairs_solution:
     def climb_stairs_1(self, n: int) -> int:
         dp = [0] * (n + 1)
@@ -24,12 +29,16 @@ class climb_stairs_solution:
         print(r2)
 
 
+# %%
+s1 = climb_stairs_solution()
+s1.climb_stairs_test()
+
 # %% [markdown]
 # 198. 打家劫舍
 # >你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
 # >给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。
 
-
+# %%
 class rob_solution:
     def rob_1(self, nums) -> int:
         if not nums:
@@ -63,6 +72,10 @@ class rob_solution:
         print(r2)
 
 
+# %%
+s2 = rob_solution()
+s2.rob_test()
+
 # %% [markdown]
 # 413. 等差数列划分
 # >给定一个数组，求这个数组中连续且等差的子数组一共有多少个。
@@ -84,11 +97,7 @@ class number_of_arithmetic_slices_solution:
 
 
 # %%
-s1 = climb_stairs_solution()
-s1.climb_stairs_test()
 
-s2 = rob_solution()
-s2.rob_test()
 
 s3 = number_of_arithmetic_slices_solution()
 s3.number_of_arithmetic_slices_test()
