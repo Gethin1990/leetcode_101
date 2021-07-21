@@ -99,22 +99,26 @@ merge_two_list_test()
 
 # setps:
 # 1. 递归框架 + 返回条件
-# 2. 递
+# 2. 画 递归树 
+# 3. 递：node.next.next 但结合返回条件，实际递归树中递入的是 1，3，5，none
+# 4. 归：b_node(node.next) 函数计算后的结果 为 6，4，2
+# 5. 断链与重链
 
 #%%
 def swap_pairs(node: ListNode) -> ListNode:
     if not node or not node.next:
         return node
-    anchor = b_node = node.next
-    last = swap_pairs(b_node.next)
+    last = swap_pairs(node.next.next)
+    b_node = node.next
+
     node.next = last
     b_node.next = node
-    return anchor
+    return b_node
 
 
 #%%
 def swap_test():
-    list = build_list(4).next
+    list = build_list(6).next
     res = swap_pairs(list)
     print_list(res)
 
