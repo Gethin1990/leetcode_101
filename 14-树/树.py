@@ -78,4 +78,17 @@ def max_depth_test():
 
 
 max_depth_test()
-# %%
+
+# %% [markdown]
+# 110
+def is_balanced(root: TreeNode) -> bool:
+    def height(root) -> int:
+        if not root:
+            return 0
+        l_height = height(root.left)
+        r_height = height(root.right)
+        if l_height == -1 or r_height == -1 or abs(l_height, r_height) > 1:
+            return -1
+        return 1 + max(l_height, r_height)
+
+    return height(root) >= 0
