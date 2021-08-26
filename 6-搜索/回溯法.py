@@ -112,9 +112,9 @@ def exist(board: list[list[str]], word: str) -> bool:
 
 #%%
 def exist_test():
-    borad = [["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]]
+    board = [["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]]
     word = "ABCCED"
-    res = exist(borad, word)
+    res = exist(board, word)
     print(res)
 
 

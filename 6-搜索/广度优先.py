@@ -4,11 +4,11 @@
 # >给定一个二维0-1 矩阵，其中1 表示陆地，0 表示海洋，每个位置与上下左右相连。已知矩阵中有且只有两个岛屿，求最少要填海造陆多少个位置才可以将两个岛屿相连。
 
 
-# setp:
+# step:
 # 1. for i,j to find the isload begin(val==1)
-# 2. use dfs to find the islaod
+# 2. use dfs to find the isload
 #   2.1 dfs framework
-#   2.2 dfs retuen condition
+#   2.2 dfs return condition
 #   2.3 find the isload start point
 #   2.4 add the local to temp q
 # 3. use bfs to find the short way
