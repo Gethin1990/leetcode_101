@@ -11,13 +11,13 @@ def build_list(count: int) -> ListNode:
     sentinel = ListNode(0)
     node = ListNode(0)
     sentinel.next = node
-    _curr = node
-    while _curr:
+    _current = node
+    while _current:
         if i == count:
             break
         i += 1
-        _curr.next = ListNode(i)
-        _curr = _curr.next
+        _current.next = ListNode(i)
+        _current = _current.next
 
     li = sentinel.next
     return li
@@ -29,12 +29,12 @@ def print_list(l: ListNode):
         l = l.next
 
 def revers_list(node: ListNode) -> ListNode:
-    _pre, _curr = None, node
-    while _curr:
-        _next = _curr.next
-        _curr.next = _pre  # 链接
-        _pre = _curr  # 移动指针
-        _curr = _next
+    _pre, _current = None, node
+    while _current:
+        _next = _current.next
+        _current.next = _pre  # 链接
+        _pre = _current  # 移动指针
+        _current = _next
     return _pre
 
 
@@ -117,7 +117,7 @@ merge_two_list_test()
 # >https://leetcode-cn.com/problems/swap-nodes-in-pairs/
 # >给定一个矩阵，交换每个相邻的一对节点
 
-# setps:
+# steps:
 # 1. 递归框架 + 返回条件
 # 2. 画 递归树
 # 3. 递：node.next.next 但结合返回条件，实际递归树中递入的是 1，3，5，none
@@ -188,12 +188,12 @@ get_intersection_node_test()
 
 # %%
 def is_palindrome(node: ListNode) -> bool:
-    vals = []
+    values = []
     _curr = node
     while _curr is not None:
-        vals.append(_curr.val)
+        values.append(_curr.val)
         _curr = _curr.next
-    return vals == vals[::-1]
+    return values == values[::-1]
 
 # %%
 def is_palindrome_test():

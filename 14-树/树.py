@@ -81,7 +81,8 @@ def max_depth_test():
 max_depth_test()
 
 # %% [markdown]
-# 110
+# 110. 平衡二叉树
+# https://leetcode-cn.com/problems/balanced-binary-tree/
 def is_balanced(root: TreeNode) -> bool:
     def height(root) -> int:
         if not root:
@@ -93,3 +94,50 @@ def is_balanced(root: TreeNode) -> bool:
         return 1 + max(l_height, r_height)
 
     return height(root) >= 0
+
+
+# %% [markdown]
+# 543. 二叉树的直径
+# https://leetcode-cn.com/problems/diameter-of-binary-tree/
+
+# %% [markdown]
+# 437. 路径总和 III
+# https://leetcode-cn.com/problems/path-sum-iii/
+
+# %% [markdown]
+# 101. 对称二叉树
+# https://leetcode-cn.com/problems/symmetric-tree/
+
+# %% [markdown]
+# 1110. 删点成林
+# https://leetcode-cn.com/problems/delete-nodes-and-return-forest/
+
+# %% [markdown]
+# 637. 二叉树的层平均值
+# https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/
+
+
+# %% [markdown]
+# 105. 从前序与中序遍历序列构造二叉树
+# https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+
+
+# %% [markdown]
+# 144. 二叉树的前序遍历
+# https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
+
+
+# %% [markdown]
+# 99. 恢复二叉搜索树
+# https://leetcode-cn.com/problems/recover-binary-search-tree/
+
+# %% [markdown]
+# 669. 修剪二叉搜索树
+# https://leetcode-cn.com/problems/trim-a-binary-search-tree/
+# %% [markdown]
+# 208. 实现 Trie (前缀树)
+# https://leetcode-cn.com/problems/implement-trie-prefix-tree/
+
+# %% [markdown]
+# 208. 实现 Trie (前缀树)
+# https://leetcode-cn.com/problems/implement-trie-prefix-tree/
