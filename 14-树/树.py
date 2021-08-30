@@ -100,13 +100,97 @@ def is_balanced(root: TreeNode) -> bool:
 # 543. 二叉树的直径
 # https://leetcode-cn.com/problems/diameter-of-binary-tree/
 
+#%%
+def diameter_of_binary_tree(root: TreeNode) -> int:
+    maxtemp = 1
+
+    def dfs(node: TreeNode):
+        if not node:
+            return 0
+        L = dfs(node.left)
+        R = dfs(node.right)
+        nonlocal maxtemp
+        maxtemp = max(L + R, maxtemp)
+        return max(L, R) + 1
+
+    dfs(root)
+    return maxtemp
+
+
+#%%
+def diameter_of_binary_tree_test():
+    tree = Tree()
+    arr = [1, 2, 3, 4, 5]
+    for val in arr:
+        tree.add(val)
+    result = diameter_of_binary_tree(tree.root)
+    print(result)
+
+
+diameter_of_binary_tree_test()
+
+
 # %% [markdown]
 # 437. 路径总和 III
 # https://leetcode-cn.com/problems/path-sum-iii/
 
+#%%
+def path_sum(root: TreeNode, sum: int) -> int:
+    if not root:
+        return 0
+
+    def dfs(node: TreeNode, sum: int):
+        if not node:
+            return 0
+        if node.val is None:
+            node.val = 0
+
+        sum -= node.val
+        count = 1 if sum == 0 else 0
+        count += dfs(node.left, sum)
+        count += dfs(node.right, sum)
+        return count
+
+    return dfs(root, sum) + path_sum(root.left, sum) + path_sum(root.right, sum)
+
+
+#%%
+def path_sum_test():
+    tree = Tree()
+    root = [10, 5, -3, 3, 2, None, 11, 3, -2, None, 1]
+    for val in root:
+        tree.add(val)
+    targetSum = 8
+    result = path_sum(tree.root, targetSum)
+    print(result)
+
+
+path_sum_test()
+
+
 # %% [markdown]
 # 101. 对称二叉树
 # https://leetcode-cn.com/problems/symmetric-tree/
+
+#%%
+def is_symmetric(root: TreeNode):
+    def check(p: TreeNode, q: TreeNode):
+        if p is None and q is None:
+            return True
+        if p is None or q is None:
+            return False
+        return (p.val is q.val) and check(p.left, q.right) and check(p.right, q.left)
+
+    return check(root, root)
+#%%
+def is_symmetric_test():
+    tree = Tree()
+    root =[1,2,2,3,4,4,3]
+    for val in root:
+        tree.add(val)
+    result =is_symmetric(tree.root)
+    print(result)
+is_symmetric_test()
 
 # %% [markdown]
 # 1110. 删点成林
@@ -138,6 +222,3 @@ def is_balanced(root: TreeNode) -> bool:
 # 208. 实现 Trie (前缀树)
 # https://leetcode-cn.com/problems/implement-trie-prefix-tree/
 
-# %% [markdown]
-# 208. 实现 Trie (前缀树)
-# https://leetcode-cn.com/problems/implement-trie-prefix-tree/
