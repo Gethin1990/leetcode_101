@@ -283,22 +283,22 @@ average_of_levels_test()
 # 105. 从前序与中序遍历序列构造二叉树
 # https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 #%%
-def build_tree(preorder: list[int], inorder: list[int]) -> TreeNode:
-    if not preorder or not inorder:
+def build_tree(pre_order: list[int], in_order: list[int]) -> TreeNode:
+    if not pre_order or not in_order:
         return None
-    root = TreeNode(preorder[0])
-    idx = inorder.index(preorder[0])
-    root.left = build_tree(preorder[1 : 1 + idx], inorder[:idx])
-    root.right = build_tree(preorder[1 + idx :], inorder[idx + 1 :])
+    root = TreeNode(pre_order[0])
+    idx = in_order.index(pre_order[0])
+    root.left = build_tree(pre_order[1 : 1 + idx], in_order[:idx])
+    root.right = build_tree(pre_order[1 + idx :], in_order[idx + 1 :])
     return root
 
 
 #%%
 def build_tree_test():
-    preorder = [3, 9, 20, 15, 7]
-    inorder = [9, 3, 15, 20, 7]
+    pre_order = [3, 9, 20, 15, 7]
+    in_order = [9, 3, 15, 20, 7]
     tree = Tree()
-    result = build_tree(preorder, inorder)
+    result = build_tree(pre_order, in_order)
     print(tree.travel(result))
 
 
@@ -335,10 +335,53 @@ def preorder_traversal_test():
 
 preorder_traversal_test()
 
-
+# TBD
 # %% [markdown]
 # 99. 恢复二叉搜索树
 # https://leetcode-cn.com/problems/recover-binary-search-tree/
+
+#%%
+def recover_tree(root: TreeNode):
+    # 中序遍历二叉树，将遍历结果保存到列表中
+    node = []
+
+    def dfs(root):
+        if root == None:
+            return
+        dfs(root.left)
+        node.append(root)
+        dfs(root.right)
+
+    dfs(root)
+
+    x, y = None, None
+    pre = node[0]
+    # 循环遍历，找到错误交换的x,y
+    for i in range(1, len(node)):
+        if pre.val > node[i].val:
+            y = node[i]
+            # 记录第一个出现的交换值
+            if not x:
+                x = pre
+        pre = node[i]
+
+    # 将找到的x和y进行交换
+    if x and y:
+        x.val, y.val = y.val, x.val
+
+
+#%%
+def recover_tree_test():
+    tree = Tree()
+    arr = [3,1,4,0,0,2]
+    for val in arr:
+        tree.add(val)
+    recover_tree(tree.root)
+    print(tree.travel(tree.root))
+
+
+recover_tree_test()
+
 
 # %% [markdown]
 # 669. 修剪二叉搜索树
