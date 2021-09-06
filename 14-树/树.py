@@ -1,4 +1,3 @@
-TBD
 #%%
 class TreeNode:
     def __init__(self, val=0, left=None, right=None) -> None:
@@ -182,33 +181,159 @@ def is_symmetric(root: TreeNode):
         return (p.val is q.val) and check(p.left, q.right) and check(p.right, q.left)
 
     return check(root, root)
+
+
 #%%
 def is_symmetric_test():
     tree = Tree()
-    root =[1,2,2,3,4,4,3]
+    root = [1, 2, 2, 3, 4, 4, 3]
     for val in root:
         tree.add(val)
-    result =is_symmetric(tree.root)
+    result = is_symmetric(tree.root)
     print(result)
+
+
 is_symmetric_test()
 
 # %% [markdown]
 # 1110. 删点成林
 # https://leetcode-cn.com/problems/delete-nodes-and-return-forest/
 
+#%%
+def delete_nodes(root: TreeNode, to_delete: list[int]) -> list[TreeNode]:
+    if not root:
+        return None
+    mapper = set(to_delete)
+    ans = [] if root.val in mapper else [root]
+
+    def dfs(node, parent, direction):
+        if not node:
+            return
+        dfs(node.left, node, "left")
+        dfs(node.right, node, "right")
+        if node.val in mapper:
+            if node.left:
+                ans.append(node.left)
+            if node.right:
+                ans.append(node.right)
+            if direction == "left":
+                parent.left = None
+            if direction == "right":
+                parent.right = None
+
+    dfs(root, None, None)
+    return ans
+
+
+#%%
+def delete_nodes_test():
+    tree = Tree()
+    arr = [1, 2, 3, 4, 5, 6, 7]
+    for val in arr:
+        tree.add(val)
+    to_delete = [3, 5]
+    result = delete_nodes(tree.root, to_delete)
+    for item in result:
+        print(tree.travel(item))
+
+
+delete_nodes_test()
+
 # %% [markdown]
 # 637. 二叉树的层平均值
 # https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/
+
+#%%
+def average_of_levels(root: TreeNode):
+    totals = []
+    counts = []
+
+    def dfs(node, depth):
+        if node is None or node.val is None:
+            return
+        # 递归下一次第一个元素
+        if depth >= len(totals):
+            totals.append(node.val)
+            counts.append(1)
+        # 递归下一次非第一个元素
+        else:
+            totals[depth] += node.val
+            counts[depth] += 1
+        dfs(node.left, depth + 1)
+        dfs(node.right, depth + 1)
+
+    dfs(root, 0)
+    return [total / count for total, count in zip(totals, counts)]
+
+
+#%%
+def average_of_levels_test():
+    tree = Tree()
+    arr = [3, 9, 20, None, None, 15, 7]
+    for val in arr:
+        tree.add(val)
+    result = average_of_levels(tree.root)
+    print(result)
+
+
+average_of_levels_test()
 
 
 # %% [markdown]
 # 105. 从前序与中序遍历序列构造二叉树
 # https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+#%%
+def build_tree(preorder: list[int], inorder: list[int]) -> TreeNode:
+    if not preorder or not inorder:
+        return None
+    root = TreeNode(preorder[0])
+    idx = inorder.index(preorder[0])
+    root.left = build_tree(preorder[1 : 1 + idx], inorder[:idx])
+    root.right = build_tree(preorder[1 + idx :], inorder[idx + 1 :])
+    return root
+
+
+#%%
+def build_tree_test():
+    preorder = [3, 9, 20, 15, 7]
+    inorder = [9, 3, 15, 20, 7]
+    tree = Tree()
+    result = build_tree(preorder, inorder)
+    print(tree.travel(result))
+
+
+build_tree_test()
 
 
 # %% [markdown]
 # 144. 二叉树的前序遍历
 # https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
+
+#%%
+def preorder_traversal(root: TreeNode) -> list[int]:
+    def preorder(root: TreeNode):
+        if not root:
+            return
+        res.append(root.val)
+        preorder(root.left)
+        preorder(root.right)
+
+    res = list()
+    preorder(root)
+    return res
+
+
+#%%
+def preorder_traversal_test():
+    tree = Tree()
+    arr = [1, 2, 3, 4, 5, 6, 7]
+    for val in arr:
+        tree.add(val)
+    result = preorder_traversal(tree.root)
+    print(result)
+
+
+preorder_traversal_test()
 
 
 # %% [markdown]
@@ -221,4 +346,3 @@ is_symmetric_test()
 # %% [markdown]
 # 208. 实现 Trie (前缀树)
 # https://leetcode-cn.com/problems/implement-trie-prefix-tree/
-
