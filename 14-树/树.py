@@ -340,6 +340,11 @@ preorder_traversal_test()
 # 99. 恢复二叉搜索树
 # https://leetcode-cn.com/problems/recover-binary-search-tree/
 
+# steps:
+# 1. 中序遍历，生成数组
+# 2. 遍历结果，找出可能错误得交换点
+# 3. 如果错误得交换点不为空，交换
+
 #%%
 def recover_tree(root: TreeNode):
     # 中序遍历二叉树，将遍历结果保存到列表中
@@ -373,7 +378,7 @@ def recover_tree(root: TreeNode):
 #%%
 def recover_tree_test():
     tree = Tree()
-    arr = [3,1,4,0,0,2]
+    arr = [7, 2, 6, 1, 3, 5, 4]
     for val in arr:
         tree.add(val)
     recover_tree(tree.root)
@@ -386,6 +391,84 @@ recover_tree_test()
 # %% [markdown]
 # 669. 修剪二叉搜索树
 # https://leetcode-cn.com/problems/trim-a-binary-search-tree/
+
+#%%
+def trim_BST(root, L, R) -> TreeNode:
+    def trim(node):
+        if not node or node.val is None:
+            return None
+        elif node.val > R:
+            return trim(node.left)
+        elif node.val < L:
+            return trim(node.right)
+        else:
+            node.left = trim(node.left)
+            node.right = trim(node.right)
+            return node
+
+    return trim(root)
+
+
+#%%
+def trim_BST_test():
+    tree = Tree()
+    arr = [3, 0, 4, None, 2, None, None, None, None, 1, None]
+    for val in arr:
+        tree.add(val)
+    result = trim_BST(tree.root, 1, 3)
+    print(tree.travel(result))
+
+
+trim_BST_test()
+
 # %% [markdown]
 # 208. 实现 Trie (前缀树)
 # https://leetcode-cn.com/problems/implement-trie-prefix-tree/
+
+#%%
+class Trie:
+    def __init__(self):
+        self.children = [None] * 26
+        self.isEnd = False
+
+    def __searchPrefix(self, prefix: str) -> "Trie":
+        node = self
+        for ch in prefix:
+            ch = ord(ch) - ord("a")
+            if not node.children[ch]:
+                return None
+            node = node.children[ch]
+        return node
+
+    def insert(self, word: str) -> None:
+        node = self
+        for ch in word:
+            ch = ord(ch) - ord("a")
+            if not node.children[ch]:
+                node.children[ch] = Trie()
+            node = node.children[ch]
+        node.isEnd = True
+
+    def search(self, word: str) -> bool:
+        node = self.__searchPrefix(word)
+        return node is not None and node.isEnd
+
+    def startsWith(self, prefix: str) -> bool:
+        return self.__searchPrefix(prefix) is not None
+
+
+#%%
+def trie_test():
+    trie = Trie()
+    trie.insert("apple")
+    r1 = trie.search("apple")
+    r2 = trie.search("app")
+    r3 = trie.startsWith("app")
+    trie.insert("app")
+    r4 = trie.search("app")
+    print(r1, r2, r3, r4)
+
+
+trie_test()
+
+# %%
