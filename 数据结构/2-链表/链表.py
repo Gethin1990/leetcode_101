@@ -28,6 +28,7 @@ def print_list(l: ListNode):
         print(l.val)
         l = l.next
 
+
 def revers_list(node: ListNode) -> ListNode:
     _pre, _current = None, node
     while _current:
@@ -36,7 +37,6 @@ def revers_list(node: ListNode) -> ListNode:
         _pre = _current  # 移动指针
         _current = _next
     return _pre
-
 
 
 # %% [markdown]
@@ -48,14 +48,17 @@ def revers_list(node: ListNode) -> ListNode:
 # 1. 递归框架+退出条件
 # 2. 递：无操作，归：新链+断链
 # %%
-def reverse_list(node: ListNode) -> ListNode:
-    if not node.next:
-        return node
-    _last = reverse_list(node.next)
-    _next, _curr = node.next, node
-    _next.next = node
-    _curr.next = None
-    return _last
+def do_reverse_list(node: ListNode) -> ListNode:
+    def reverse_list(node: ListNode) -> ListNode:
+        if not node.next:
+            return node
+        _last = reverse_list(node.next)
+        _next, _curr = node.next, node
+        _curr.next = None
+        _next.next = node
+        return _last
+
+    return reverse_list(node)
 
 
 def revers_list_2(node: ListNode) -> ListNode:
@@ -71,7 +74,7 @@ def revers_list_2(node: ListNode) -> ListNode:
 # %%
 def reverse_list_test():
     node = build_list(4).next
-    new_node = reverse_list(node)
+    new_node = do_reverse_list(node)
     print_list(new_node)
 
 
@@ -93,12 +96,17 @@ def merge_two_list(l1: ListNode, l2: ListNode) -> ListNode:
         return l2
     if not l2:
         return l1
-    if l1.val >= l2.val:
-        l2.next = merge_two_list(l1, l2.next)
-        return l2
-    else:
-        l1.next = merge_two_list(l1.next, l2)
+    if l1.val <= l2.val:
+        o = merge_two_list(l1.next, l2)
+        l1.next = o
         return l1
+    else:
+        print("l2",l2.val)
+        o = merge_two_list(l1, l2.next)
+        print("l2",l2.val)
+        l2.next = o
+        return l2
+        
 
 
 # %%
@@ -128,12 +136,12 @@ merge_two_list_test()
 def swap_pairs(node: ListNode) -> ListNode:
     if not node or not node.next:
         return node
-    _last = swap_pairs(node.next.next)
-    _next = node.next
-
-    node.next = _last
-    _next.next = node
-    return _next
+    n = node.next
+    o = swap_pairs(n.next)
+    #print(n.val,node.val,o.val if o is not None else None)
+    n.next = node
+    node.next = o
+    return n
 
 
 #%%
@@ -195,6 +203,7 @@ def is_palindrome(node: ListNode) -> bool:
         _curr = _curr.next
     return values == values[::-1]
 
+
 # %%
 def is_palindrome_test():
     l1 = build_list(3)
@@ -203,6 +212,8 @@ def is_palindrome_test():
     l1.next.next.next.next = l2
     res = is_palindrome(l1)
     print(res)
+
+
 is_palindrome_test()
 
 # %%

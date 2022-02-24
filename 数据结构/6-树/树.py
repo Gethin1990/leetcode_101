@@ -64,6 +64,7 @@ def max_depth(root: TreeNode) -> int:
     l_high = max_depth(root.left)
     r_high = max_depth(root.right)
     deep = max(l_high, r_high) + 1
+    print(root.val,l_high,r_high,deep)
     return deep
 
 
