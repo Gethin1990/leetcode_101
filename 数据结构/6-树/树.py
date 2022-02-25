@@ -64,14 +64,14 @@ def max_depth(root: TreeNode) -> int:
     l_high = max_depth(root.left)
     r_high = max_depth(root.right)
     deep = max(l_high, r_high) + 1
-    print(root.val,l_high,r_high,deep)
+    print(root.val, l_high, r_high, deep)
     return deep
 
 
 # %%
 def max_depth_test():
     tree = Tree()
-    arr = [1, 2, 3, 4, 5]
+    arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     for val in arr:
         tree.add(val)
     res = max_depth(tree.root)
@@ -89,7 +89,7 @@ def is_balanced(root: TreeNode) -> bool:
             return 0
         l_height = height(root.left)
         r_height = height(root.right)
-        if l_height == -1 or r_height == -1 or abs(l_height, r_height) > 1:
+        if l_height == -1 or r_height == -1 or abs(l_height - r_height) > 1:
             return -1
         return 1 + max(l_height, r_height)
 
@@ -138,6 +138,7 @@ diameter_of_binary_tree_test()
 def path_sum(root: TreeNode, sum: int) -> int:
     if not root:
         return 0
+    n = 0
 
     def dfs(node: TreeNode, sum: int):
         if not node:
@@ -147,11 +148,16 @@ def path_sum(root: TreeNode, sum: int) -> int:
 
         sum -= node.val
         count = 1 if sum == 0 else 0
-        count += dfs(node.left, sum)
-        count += dfs(node.right, sum)
+        l_o = dfs(node.left, sum)
+        r_o = dfs(node.right, sum)
+        count += l_o + r_o
         return count
 
-    return dfs(root, sum) + path_sum(root.left, sum) + path_sum(root.right, sum)
+    n_o = dfs(root, sum)
+    l_o = path_sum(root.left, sum)
+    r_o = path_sum(root.right, sum)
+    n += n_o + l_o + r_o
+    return n
 
 
 #%%
@@ -179,7 +185,10 @@ def is_symmetric(root: TreeNode):
             return True
         if p is None or q is None:
             return False
-        return (p.val is q.val) and check(p.left, q.right) and check(p.right, q.left)
+
+        o_1 = check(p.left, q.right)
+        o_2 = check(p.right, q.left)
+        return (p.val is q.val) and o_1 and o_2
 
     return check(root, root)
 
@@ -252,6 +261,7 @@ def average_of_levels(root: TreeNode):
     def dfs(node, depth):
         if node is None or node.val is None:
             return
+        print(depth)
         # 递归下一次第一个元素
         if depth >= len(totals):
             totals.append(node.val)
@@ -270,7 +280,7 @@ def average_of_levels(root: TreeNode):
 #%%
 def average_of_levels_test():
     tree = Tree()
-    arr = [3, 9, 20, None, None, 15, 7]
+    arr = [1,2,3,4,5]
     for val in arr:
         tree.add(val)
     result = average_of_levels(tree.root)
