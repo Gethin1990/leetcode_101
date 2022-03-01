@@ -1,7 +1,7 @@
 # 基本二分搜索
 def binary_search(nums, target):
     left = 0
-    right = len(nums) - 1
+    right = len(nums) - 1 
     while left <= right:
         mid = (left + right) // 2
         if nums[mid] == target:
@@ -74,17 +74,17 @@ def left_bound(nums, target):
 
 # 寻找右侧边界的二分搜索，闭区间写法
 def right_bound(nums, target):
-    left, right = 0, len(nums) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if nums[mid] == target:
+    left, right = 0, len(nums) - 1 # 1. 闭区间
+    while left <= right: # 2. 对齐下标
+        mid = (left + right) // 2 # 3. 二分
+        if nums[mid] == target: # 4.if<t:{left = mid+1}; if>t:{right = mid+1};if==t:{left+1}
             # 锁定右侧边界
             left = mid + 1
-        elif nums[mid] < target:
+        if nums[mid] < target:
             left = mid + 1
-        elif nums[mid] > target:
+        if nums[mid] > target:
             right = mid - 1
     # 检查right越界情况
-    if right < 0 or nums[right] != target:
+    if right < 0 or nums[right] != target: # 5. 检查越界情况
         return -1
-    return right
+    return right # 6. 返回下界标
