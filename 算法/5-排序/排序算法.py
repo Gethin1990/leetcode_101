@@ -4,15 +4,13 @@
 
 # 冒泡排序
 # %%
+# 不停交换，把最大的冒泡到最后面
 def bubble_sort(nums: list[int]):
-    for _i in range(len(nums)):
-        is_sorted = True
-        for _j in range(len(nums) - 1 - _i):
+    n = len(nums)
+    for _i in range(0, n - 1):
+        for _j in range(0, n - 1 - _i):
             if nums[_j] > nums[_j + 1]:
                 nums[_j], nums[_j + 1] = nums[_j + 1], nums[_j]
-                is_sorted = False
-        if is_sorted:
-            break
     return nums
 
 
@@ -25,7 +23,7 @@ def bubble_sort_test():
 # 选择排序
 # %%
 
-
+# 最小的找出来，交换到最前面
 def selection_sort(nums: list[int]):
     for _i in range(len(nums) - 1):
         _min_index = _i
@@ -47,12 +45,11 @@ def selection_sort_test():
 # %%
 def insertion_sort(nums: list[int]):
     for _i in range(1, len(nums)):
-        _pre_index = _i - 1
-        current = nums[_i]
-        while _pre_index >= 0 and current < nums[_pre_index]:
-            nums[_pre_index + 1] = nums[_pre_index]
-            _pre_index -= 1
-        nums[_pre_index + 1] = current
+        for _j in range(_i, 0, -1):
+            if nums[_j] < nums[_j - 1]:
+                nums[_j], nums[_j - 1] = nums[_j - 1], nums[_j]
+            else:
+                break
     return nums
 
 
@@ -84,11 +81,28 @@ def quick_sort(nums: list[int], _l, _r):
     quick_sort(nums, _low + 1, _r)
 
 
+# %%
+# 切成树，先序遍历
+def quicksort2(array):
+    if len(array) < 2:
+        return array  # 基线条件：为空或只包含一个元素的数组是“有序”的
+    else:
+        pivot = array[0]  # 递归条件
+        less = [i for i in array[1:] if i <= pivot]  # 由所有小于基准值的元素组成的子数组
+        greater = [i for i in array[1:] if i > pivot]  # 由所有大于基准值的元素组成的子数组
+        o_less = quicksort2(less)
+        o_greater = quicksort2(greater)
+    return o_less + [pivot] + o_greater
+
+
 def quick_sort_test():
     nums = [5, 4, 8, 9, 2, 7, 6]
-    quick_sort(nums, 0, len(nums) - 1)
-    print(nums)
+    # quick_sort(nums, 0, len(nums) - 1)
+    r = quicksort2(nums)
+    print(r)
 
+
+quick_sort_test()
 
 # 归并排序
 # %%
@@ -134,39 +148,30 @@ def merge_sort_test():
 
 
 def heap_sort(arr):
-    global heapLen
-    # 用于标记堆尾部的索引
-    heapLen = len(arr)
-    # 构建最大堆
-    build_max_heap(arr)
-    for _i in range(len(arr) - 1, 0, -1):
-        # 依次将堆顶移至堆尾
-        swap(arr, 0, _i)
-        heapLen -= 1
-        heapify(arr, 0)
+    def init_heap(arr):
+        n = len(arr)
+        last_parent = (n - 1) // 2  # 最后一个parent节点
+        for i in range(last_parent, -1, -1):
+            adjust_heap(arr, n, i)
+
+    def adjust_heap(arr, max_length, parent):
+        left = 2 * parent + 1
+        right = 2 * parent + 2
+        largest = parent
+
+        if left < max_length and arr[left] > arr[largest]:
+            largest = left
+        if right < max_length and arr[right] > arr[largest]:
+            largest = right
+        if parent != largest:
+            arr[parent], arr[largest] = arr[largest], arr[parent]
+            adjust_heap(arr, max_length, largest)
+
+    init_heap(arr)  # 初始化大顶堆
+    for i in range(len(arr) - 1, -1, -1):
+        arr[i], arr[0] = arr[0], arr[i]  # 每次将最大值移到最后
+        adjust_heap(arr, i, 0)
     return arr
-
-
-def build_max_heap(arr):
-    for _i in range(len(arr) // 2 - 1, -1, -1):
-        heapify(arr, _i)
-
-
-def heapify(arr, _i):
-    _left = 2 * _i + 1
-    _right = 2 * _i + 2
-    _largest = _i
-    if _right < heapLen and arr[_right] > arr[_largest]:
-        _largest = _right
-    if _left < heapLen and arr[_left] > arr[_largest]:
-        _largest = _left
-    if _largest != _i:
-        swap(arr, _largest, _i)
-        heapify(arr, _largest)
-
-
-def swap(arr, _i, _j):
-    arr[_i], arr[_j] = arr[_j], arr[_i]
 
 
 def heap_sort_test():
