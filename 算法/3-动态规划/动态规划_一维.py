@@ -102,3 +102,4 @@ class number_of_arithmetic_slices_solution:
 s3 = number_of_arithmetic_slices_solution()
 s3.number_of_arithmetic_slices_test()
 # %%
+
